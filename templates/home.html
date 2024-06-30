@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body class="relative">
+        <div class="mt-5 flex items-center gap-4">
+            <img id="user_profile_element" class="w-8 h-8 rounded-full" src="" alt="">
+            <div class="font-medium text-lg">
+                <div>Hello, {{ user_name }}! 👋</div>
+            </div>
+        </div>
+        <div class="mt-10">
+            <div class="ml-2 font-bold text-lg">Ask Sulphr</div>
+            <div class="mt-3 grid grid-cols-2 gap-4">
+                <div class="bg-white w-full p-4 h-24 rounded-3xl cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6" fill="none" viewBox="0 0 24 24" class="icon-md" style="color: rgb(226, 197, 65);"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19a3 3 0 1 1-6 0M15.865 16A7.54 7.54 0 0 0 19.5 9.538C19.5 5.375 16.142 2 12 2S4.5 5.375 4.5 9.538A7.54 7.54 0 0 0 8.135 16m7.73 0h-7.73m7.73 0v3h-7.73v-3"></path></svg>
+                    <div class="text-gray-500 text-sm mt-1">Upload an Image</div>
+                </div>
+                <div class="bg-white w-full p-4 h-24 rounded-3xl cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6" fill="none" viewBox="0 0 24 24" class="icon-md" style="color: rgb(203, 139, 208);"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 6h7M3 10h4"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.428 17.572 20.5 10.5a2.828 2.828 0 1 0-4-4l-7.072 7.072a2 2 0 0 0-.547 1.022L8 19l4.406-.881a2 2 0 0 0 1.022-.547"></path></svg>
+                    <div class="text-gray-500 text-sm mt-1">Use Text Prompts with Sulphur</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6">
+            <div class="ml-2 font-bold text-lg">Recommendations</div>
+            <div class="mt-3">
+                <div class="bg-white w-full p-4 h-fit rounded-3xl cursor-pointer">
+                    <div class="grid grid-cols-4">
+                        <div class="flex justify-center items-center col-span-3">
+                            <div class="p-2 font-bold">Is it okay for me to consume this drink and provide some information about any potential health concerns?</div>
+                        </div>
+                        <img class="h-32 rounded-lg" src="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    
+    const user_profile = '{{ user_profile }}';
+    const user_email = '{{ user_email }}';
+    const user_name = '{{ user_name }}';
+    const user_profile_element = document.getElementById('user_profile_element');
+    user_profile_element.src = user_profile;
+
+</script>

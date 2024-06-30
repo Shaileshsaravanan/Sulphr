@@ -1,0 +1,158 @@
+    <!DOCTYPE html>
+    <html>
+        {% include 'header.html' %}
+        <body class="flex flex-col h-screen">
+            <div class="flex justify-center items-center mt-5 text-gray-700 font-500 text-2xl">
+                <img class="h-16 -mr-3" src="/static/Sulphr - Logo.svg">
+                Sulphr
+            </div>
+            <div id="conversation" class="flex-1 overflow-y-auto pb-24">
+            </div>
+            <div class="fixed bottom-0 left-0 w-full bg-white z-50 shadow-md">
+                <div class="py-3 px-2 pb-10 flex items-center">
+                    <input id="input" type="text" class="py-3 px-4 block w-full border border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="">
+                    <div id="send_button">
+                        <button onclick="send()" type="button" class="ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+                            <svg class="w-5 h-5 -rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+    <script>
+        const user_profile = '{{ user_profile }}';
+        const user_email = '{{ user_email }}';
+        const user_name = '{{ user_name }}';
+
+        function conversation(message, user) {
+            const conversationDiv = document.getElementById('conversation');
+
+            if (user === 'Sulphr') {
+                const sulphrMessageDiv = document.createElement('div');
+                const messageContent = `<div class="flex items-start gap-2.5 mt-5">
+                                            <img class="h-16 -mr-5 -mt-4 -ml-2 rounded-full" src="/static/Sulphr - Logo.svg">
+                                            <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl">
+                                            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                                <span class="text-sm font-semibold text-gray-900">Sulphr</span>
+                                            </div>
+                                                <p id="typing-${Date.now()}" class="text-sm font-normal py-2.5 text-gray-900"></p>
+                                            </div>
+                                        </div>`;
+
+                sulphrMessageDiv.innerHTML = messageContent;
+                conversationDiv.appendChild(sulphrMessageDiv);
+
+                const typingElement = sulphrMessageDiv.querySelector('p');
+                typeEffect(typingElement, message);
+            } else {
+                const messageContent = `<div class="flex items-start justify-end gap-2.5 mt-5">
+                                            <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-blue-600 text-white rounded-s-xl rounded-es-xl rounded-br-lg">
+                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                                    <span class="text-sm font-semibold">${user_name}</span>
+                                                </div>
+                                                <p class="text-sm font-normal py-2.5">${message}</p>
+                                            </div>
+                                            <img class="h-8 mr-2.5 mt-1 rounded-full" src="${user_profile}">
+                                        </div>`;
+
+                conversationDiv.innerHTML += messageContent;
+            }
+
+            // Scroll to the bottom of the conversation div
+            scrollToBottom(conversationDiv);
+        }
+
+        function typeEffect(element, text, speed = 50) {
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        function scrollToBottom(element) {
+            element.scrollTop = element.scrollHeight;
+        }
+
+        const send_button = document.getElementById('send_button');
+        const input = document.getElementById('input');
+        const loading_button = `<button id="send_button" onclick="send()" type="button" class="ml-2.5 p-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm text-center items-center">
+                                        <svg aria-hidden="true" role="status" class="w-5 h-5 animate-spin" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
+                                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+                                        </svg>
+                                    </button>`;
+        const normal_button = `<button onclick="send()" type="button" class="ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+                                    <svg class="w-5 h-5 -rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </button>`;
+
+        const initial_prompt = `I want to have a conversation about allergies. I want you 
+                                to ask me questions about my personal and family history 
+                                related to allergies, my current symptoms, triggers, 
+                                and any medications I take. I want you to ask detailed 
+                                questions, exploring specific symptoms, severity, frequency, 
+                                and potential connections to my lifestyle and environment. 
+                                Remember to be interactive and ask follow-up questions based 
+                                on my answers. Continue the conversation based on the history,
+                                and avoid repeating questions. When you have asked all the 
+                                necessary questions, reply with 'Yoda'. Start by asking 
+                                one question, and strictly do not repeat same/similar questions.`
+
+        
+        var conversation_history = '';
+
+                            
+        function form_api(input){
+            fetch('/api/form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response === 'Yoda') {
+                    send_button.innerHTML = '';
+                    return;
+                } else {
+                    conversation(data.response, 'Sulphr');
+                    conversation_history += `Bot: ${data.response}`;
+                    send_button.innerHTML = normal_button;
+                    console.log('Success:', data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        window.onload = function() {
+            form_api(initial_prompt);
+            conversation_history += `User: ${initial_prompt}`;
+        }
+
+        function send() {
+
+            if (input.value === '') {
+                return;
+            } else {
+                send_button.innerHTML = loading_button;
+                const message = input.value;
+                conversation_history += `User: ${message}`;
+                form_api(conversation_history);
+                input.value = '';
+                conversation(message, user_name);
+            }
+        }
+
+    </script>
