@@ -3,7 +3,7 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import os
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv
 import googleapiclient.http
 import google.generativeai as genai
 

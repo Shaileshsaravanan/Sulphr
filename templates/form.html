@@ -2,14 +2,14 @@
     <html>
         {% include 'header.html' %}
         <body class="flex flex-col h-screen">
-            <div class="flex justify-center items-center mt-5 text-gray-700 font-500 text-2xl">
-                <img class="h-16 -mr-3" src="/static/Sulphr - Logo.svg">
-                Sulphr
+            <div id="conversation" class="flex-1 overflow-y-auto pb24">   
+                <div class="flex justify-center items-center mt-5 text-gray-700 font-500 text-2xl">
+                    <img class="h-16 -mr-3" src="/static/Sulphr - Logo.svg">
+                    Sulphr
+                </div>             
             </div>
-            <div id="conversation" class="flex-1 overflow-y-auto pb24">                
-            </div>
-            <div class="fixed bottom-0 left-0 w-full bg-white z-50 shadow-md">
-                <div class="px-3">
+            <div class="sticky bottom-0 left-0 w-full bg-white z-50 shadow-md">
+                <div class="px-3 mt-3">
                     <div id="upload_items" class="hidden flex flex-col bg-white border shadow-sm rounded-xl gap-x-2 gap-y-2 p-3">
                     </div>
                 </div>
@@ -44,10 +44,10 @@
         const user_profile = '{{ user_profile }}';
         const user_email = '{{ user_email }}';
         const user_name = '{{ user_name }}';
+        const conversationDiv = document.getElementById('conversation');
 
         function conversation(message, user) {
-            const conversationDiv = document.getElementById('conversation');
-
+            
             if (user === 'Sulphr') {
                 const sulphrMessageDiv = document.createElement('div');
                 const messageContent = `<div class="flex items-start gap-2.5 mt-5">
@@ -123,6 +123,8 @@
 
         function prescription_upload(){
             conversation_status = 'image_input';
+            loading_button.classList.add('hidden');
+            normal_button.classList.remove('hidden');
             upload_button.classList.remove('hidden');
             conversation('Please upload any prescriptions you have that might affect your dietary restrictions.', 'Sulphr');
             text_input.classList.add('hidden');
@@ -139,7 +141,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.response === 'Yoda') {
+                if (data.response.includes('Yoda')) {
                     prescription_upload();
                     return;
                 } else {
@@ -242,12 +244,15 @@
                                                     </div>
                                                 </div>`;
                     console.log('Image Object:', imageObject);
+                    scrollToBottom(conversationDiv);
                 };
 
                 upload_button.classList.remove('hidden');
                 loading_button.classList.add('hidden');
                 reader.readAsDataURL(file);
+                scrollToBottom(conversationDiv);
             });
+            scrollToBottom(conversationDiv);
         });
 
         function delete_image(base64){
@@ -266,12 +271,28 @@
                 upload_items.classList.add('hidden');
                 upload_button.classList.remove('hidden');
             }
+            scrollToBottom(conversationDiv);
         }
 
         function upload(){
+
+            scrollToBottom(conversationDiv);
             upload_button.classList.add('hidden');
             loading_button.classList.remove('hidden');
+            upload_items.classList.add('hidden');
+            conversation_status = 'text_input';
+            normal_button.classList.remove('hidden');
+            loading_button.classList.add('hidden');
+            image_input.classList.add('hidden');
+            text_input.classList.remove('hidden');
 
         }
+
+        text_input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); 
+                send(); 
+            }
+        });
 
     </script>
