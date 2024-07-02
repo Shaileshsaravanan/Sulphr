@@ -1,298 +1,299 @@
-    <!DOCTYPE html>
-    <html>
-        {% include 'header.html' %}
-        <body class="flex flex-col h-screen">
-            <div id="conversation" class="flex-1 overflow-y-auto pb24">   
-                <div class="flex justify-center items-center mt-5 text-gray-700 font-500 text-2xl">
-                    <img class="h-16 -mr-3" src="/static/Sulphr - Logo.svg">
-                    Sulphr
-                </div>             
-            </div>
-            <div class="sticky bottom-0 left-0 w-full bg-white z-50 shadow-md">
-                <div class="px-3 mt-3">
-                    <div id="upload_items" class="hidden flex flex-col bg-white border shadow-sm rounded-xl gap-x-2 gap-y-2 p-3">
-                    </div>
-                </div>
-                <div class="py-3 px-2 pb-10 flex items-center">
-                    <input id="text_input" type="text" class="py-3 px-4 block w-full border border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="">
-                    <input type="file" id="image_input" multiple class="hidden block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4" accept="image/jpeg, image/png, image/gif, image/webp">                    <div id="send_button">
-                    <div id="" class="flex">
-                        <button id="normal_button" onclick="send()" type="button" class="ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-                            <svg class="w-5 h-5 -rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                            </svg>
-                        </button>
-                        <button id="loading_button" onclick="send()" type="button" class="hidden ml-2.5 p-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm text-center items-center">
-                            <svg aria-hidden="true" role="status" class="w-5 h-5 animate-spin" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
-                            </svg>
-                        </button>
-                        <button id="upload_button" onclick="upload()" type="button" class="hidden ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-                            <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="17 8 12 3 7 8"></polyline>
-                                <line x1="12" x2="12" y1="3" y2="15"></line>
-                            </svg>
-                        </button>
-                    </div>    
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body class="flex flex-col h-screen">
+        <div id="conversation" class="flex-1 overflow-y-auto pb24">   
+            <div class="flex justify-center items-center mt-5 text-gray-700 font-500 text-2xl">
+                <img class="h-16 -mr-3" src="/static/Sulphr - Logo.svg">
+                Sulphr
+            </div>             
+        </div>
+        <div class="sticky bottom-0 left-0 w-full bg-white z-50 shadow-md">
+            <div class="px-3 mt-3">
+                <div id="upload_items" class="hidden flex flex-col bg-white border shadow-sm rounded-xl gap-x-2 gap-y-2 p-3">
                 </div>
             </div>
-        </body>
-    </html>
-    <script>
-        const user_profile = '{{ user_profile }}';
-        const user_email = '{{ user_email }}';
-        const user_name = '{{ user_name }}';
-        const conversationDiv = document.getElementById('conversation');
+            <div class="py-3 px-2 pb-10 flex items-center">
+                <input id="text_input" type="text" class="py-3 px-4 block w-full border border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="">
+                <input type="file" id="image_input" multiple class="hidden block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4" accept="image/jpeg, image/png, image/gif, image/webp">                    <div id="send_button">
+                <div id="" class="flex">
+                    <button id="normal_button" onclick="send()" type="button" class="ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+                        <svg class="w-5 h-5 -rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </button>
+                    <button id="loading_button" onclick="send()" type="button" class="hidden ml-2.5 p-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm text-center items-center">
+                        <svg aria-hidden="true" role="status" class="w-5 h-5 animate-spin" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
+                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button id="upload_button" onclick="upload()" type="button" class="hidden ml-2.5 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+                        <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" x2="12" y1="3" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>    
+            </div>
+        </div>
+    </body>
+</html>
+<script>
 
-        function conversation(message, user) {
-            
-            if (user === 'Sulphr') {
-                const sulphrMessageDiv = document.createElement('div');
-                const messageContent = `<div class="flex items-start gap-2.5 mt-5">
-                                            <img class="h-16 -mr-5 -mt-4 -ml-2 rounded-full" src="/static/Sulphr - Logo.svg">
-                                            <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl">
-                                            <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                                <span class="text-sm font-semibold text-gray-900">Sulphr</span>
-                                            </div>
-                                                <p id="typing-${Date.now()}" class="text-sm font-normal py-2.5 text-gray-900"></p>
-                                            </div>
-                                        </div>`;
+    const user_profile = '{{ user_profile }}';
+    const user_email = '{{ user_email }}';
+    const user_name = '{{ user_name }}';
+    const conversationDiv = document.getElementById('conversation');
 
-                sulphrMessageDiv.innerHTML = messageContent;
-                conversationDiv.appendChild(sulphrMessageDiv);
-
-                const typingElement = sulphrMessageDiv.querySelector('p');
-                typeEffect(typingElement, message);
-            } else {
-                const messageContent = `<div class="flex items-start justify-end gap-2.5 mt-5">
-                                            <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-blue-600 text-white rounded-s-xl rounded-es-xl rounded-br-lg">
-                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                                    <span class="text-sm font-semibold">${user_name}</span>
-                                                </div>
-                                                <p class="text-sm font-normal py-2.5">${message}</p>
-                                            </div>
-                                            <img class="h-8 mr-2.5 mt-1 rounded-full" src="${user_profile}">
-                                        </div>`;
-
-                conversationDiv.innerHTML += messageContent;
-            }
-
-            // Scroll to the bottom of the conversation div
-            scrollToBottom(conversationDiv);
-        }
-
-        function typeEffect(element, text, speed = 50) {
-            let i = 0;
-            function typing() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typing, speed);
-                }
-            }
-            typing();
-        }
-
-        function scrollToBottom(element) {
-            element.scrollTop = element.scrollHeight;
-        }
-
-        const send_button = document.getElementById('send_button');
-        const text_input = document.getElementById('text_input');
-        const image_input = document.getElementById('image_input');
-        const upload_items = document.getElementById('upload_items');
-
-        const initial_prompt = `I want to have a conversation about allergies. I want you 
-                                to ask me questions about my personal and family history 
-                                related to allergies, my current symptoms, triggers, 
-                                and any medications I take. I want you to ask detailed 
-                                questions, exploring specific symptoms, severity, frequency, 
-                                and potential connections to my lifestyle and environment. 
-                                Remember to be interactive and ask follow-up questions based 
-                                on my answers. Continue the conversation based on the history,
-                                and avoid repeating questions. When you have asked all the 
-                                necessary questions, reply with 'Yoda'. Start by asking 
-                                one question, and strictly do not repeat same/similar questions.`
-
+    function conversation(message, user) {
         
-        var conversation_history = '';
-        var conversation_status = 'text_input';
-        var images = [];
+        if (user === 'Sulphr') {
+            const sulphrMessageDiv = document.createElement('div');
+            const messageContent = `<div class="flex items-start gap-2.5 mt-5">
+                                        <img class="h-16 -mr-5 -mt-4 -ml-2 rounded-full" src="/static/Sulphr - Logo.svg">
+                                        <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl">
+                                        <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                            <span class="text-sm font-semibold text-gray-900">Sulphr</span>
+                                        </div>
+                                            <p id="typing-${Date.now()}" class="text-sm font-normal py-2.5 text-gray-900"></p>
+                                        </div>
+                                    </div>`;
 
-        function prescription_upload(){
-            conversation_status = 'image_input';
-            loading_button.classList.add('hidden');
-            normal_button.classList.remove('hidden');
-            upload_button.classList.remove('hidden');
-            conversation('Please upload any prescriptions you have that might affect your dietary restrictions.', 'Sulphr');
-            text_input.classList.add('hidden');
-            image_input.classList.remove('hidden');
-        }
-                            
-        function form_api(input){
-            fetch('/api/form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ input: input })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.response.includes('Yoda')) {
-                    prescription_upload();
-                    return;
-                } else {
-                    conversation(data.response, 'Sulphr');
-                    conversation_history += `Bot: ${data.response}`;
-                    normal_button.classList.remove('hidden');
-                    loading_button.classList.add('hidden');
-                    console.log('Success:', data);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            sulphrMessageDiv.innerHTML = messageContent;
+            conversationDiv.appendChild(sulphrMessageDiv);
+
+            const typingElement = sulphrMessageDiv.querySelector('p');
+            typeEffect(typingElement, message);
+        } else {
+            const messageContent = `<div class="flex items-start justify-end gap-2.5 mt-5">
+                                        <div class="flex flex-col w-[320px] leading-1.5 p-4 border-gray-200 bg-blue-600 text-white rounded-s-xl rounded-es-xl rounded-br-lg">
+                                            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                                                <span class="text-sm font-semibold">${user_name}</span>
+                                            </div>
+                                            <p class="text-sm font-normal py-2.5">${message}</p>
+                                        </div>
+                                        <img class="h-8 mr-2.5 mt-1 rounded-full" src="${user_profile}">
+                                    </div>`;
+
+            conversationDiv.innerHTML += messageContent;
         }
 
-        window.onload = function() {
-            form_api(initial_prompt);
-            conversation_history += `User: ${initial_prompt}`;
-        }
+        // Scroll to the bottom of the conversation div
+        scrollToBottom(conversationDiv);
+    }
 
-        function send() {
-
-            if (conversation_status === 'text_input') {
-                if (text_input.value === '') {
-                    return;
-                } else {
-                    normal_button.classList.add('hidden');
-                    loading_button.classList.remove('hidden');
-                    const message = text_input.value;
-                    conversation_history += `User: ${message}`;
-                    form_api(conversation_history);
-                    text_input.value = '';
-                    conversation(message, user_name);
-                }
-            } else if (conversation_status === 'image_input') {
-                console.log(document.getElementById('image_input').files);
+    function typeEffect(element, text, speed = 50) {
+        let i = 0;
+        function typing() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typing, speed);
             }
         }
+        typing();
+    }
 
-        function getBase64FileSize(base64String) {
+    function scrollToBottom(element) {
+        element.scrollTop = element.scrollHeight;
+    }
 
-            const base64Str = base64String.split(',')[1];
-            const base64Length = base64Str.length;
-            const paddingCharacters = (base64Str.match(/=+$/) || []).length;
-            const fileSizeInBytes = (base64Length * 3 / 4) - paddingCharacters;
-            const fileSizeInKB = fileSizeInBytes / 1024;
-            const fileSizeInMB = fileSizeInKB / 1024;
+    const send_button = document.getElementById('send_button');
+    const text_input = document.getElementById('text_input');
+    const image_input = document.getElementById('image_input');
+    const upload_items = document.getElementById('upload_items');
 
-            if (fileSizeInMB > 1) {
-                return `${fileSizeInMB.toFixed(2)} MB`;
+    const initial_prompt = `I want to have a conversation about allergies. I want you 
+                            to ask me questions about my personal and family history 
+                            related to allergies, my current symptoms, triggers, 
+                            and any medications I take. I want you to ask detailed 
+                            questions, exploring specific symptoms, severity, frequency, 
+                            and potential connections to my lifestyle and environment. 
+                            Remember to be interactive and ask follow-up questions based 
+                            on my answers. Continue the conversation based on the history,
+                            and avoid repeating questions. When you have asked all the 
+                            necessary questions, reply with 'Yoda'. Start by asking 
+                            one question, and strictly do not repeat same/similar questions.`
+
+    
+    var conversation_history = '';
+    var conversation_status = 'text_input';
+    var images = [];
+
+    function prescription_upload(){
+        conversation_status = 'image_input';
+        loading_button.classList.add('hidden');
+        normal_button.classList.remove('hidden');
+        upload_button.classList.remove('hidden');
+        conversation('Please upload any prescriptions you have that might affect your dietary restrictions.', 'Sulphr');
+        text_input.classList.add('hidden');
+        image_input.classList.remove('hidden');
+    }
+                        
+    function form_api(input){
+        fetch('/api/form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input: input })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.response.includes('Yoda')) {
+                prescription_upload();
+                return;
             } else {
-                return `${fileSizeInKB.toFixed(2)} KB`;
+                conversation(data.response, 'Sulphr');
+                conversation_history += `Bot: ${data.response}`;
+                normal_button.classList.remove('hidden');
+                loading_button.classList.add('hidden');
+                console.log('Success:', data);
             }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    window.onload = function() {
+        form_api(initial_prompt);
+        conversation_history += `User: ${initial_prompt}`;
+    }
+
+    function send() {
+
+        if (conversation_status === 'text_input') {
+            if (text_input.value === '') {
+                return;
+            } else {
+                normal_button.classList.add('hidden');
+                loading_button.classList.remove('hidden');
+                const message = text_input.value;
+                conversation_history += `User: ${message}`;
+                form_api(conversation_history);
+                text_input.value = '';
+                conversation(message, user_name);
+            }
+        } else if (conversation_status === 'image_input') {
+            console.log(document.getElementById('image_input').files);
         }
+    }
 
-        document.getElementById('image_input').addEventListener('change', function(event) {
-            const files = event.target.files;
-            upload_button.classList.add('hidden');
-            loading_button.classList.remove('hidden');
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const base64Image = e.target.result;
-                    const imageName = file.name;
+    function getBase64FileSize(base64String) {
 
-                    const imageObject = {
-                        name: imageName,
-                        base64: base64Image
-                    };
+        const base64Str = base64String.split(',')[1];
+        const base64Length = base64Str.length;
+        const paddingCharacters = (base64Str.match(/=+$/) || []).length;
+        const fileSizeInBytes = (base64Length * 3 / 4) - paddingCharacters;
+        const fileSizeInKB = fileSizeInBytes / 1024;
+        const fileSizeInMB = fileSizeInKB / 1024;
 
-                    image_size = getBase64FileSize(imageObject.base64);
-                    upload_items.classList.remove('hidden');
-                    images.push(imageObject);
-                    upload_items.innerHTML += `<div id="${imageObject.base64}">
-                                                    <div class="flex justify-between items-center">
-                                                    <div class="flex items-center gap-x-3">
-                                                        <span class="size-8 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg">
-                                                        <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                            <polyline points="17 8 12 3 7 8"></polyline>
-                                                            <line x1="12" x2="12" y1="3" y2="15"></line>
-                                                        </svg>
-                                                        </span>
-                                                        <div>
-                                                        <p class="text-sm font-medium text-gray-800">${imageObject.name}</p>
-                                                        <p class="text-xs text-gray-500">${image_size}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="inline-flex items-center gap-x-2">
-                                                        <div onclick="delete_image('${imageObject.base64}')" class="cursor-pointer text-gray-500 hover:text-gray-800">
-                                                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path d="M3 6h18"></path>
-                                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                                                            <line x1="10" x2="10" y1="11" y2="17"></line>
-                                                            <line x1="14" x2="14" y1="11" y2="17"></line>
-                                                        </svg>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>`;
-                    console.log('Image Object:', imageObject);
-                    scrollToBottom(conversationDiv);
+        if (fileSizeInMB > 1) {
+            return `${fileSizeInMB.toFixed(2)} MB`;
+        } else {
+            return `${fileSizeInKB.toFixed(2)} KB`;
+        }
+    }
+
+    document.getElementById('image_input').addEventListener('change', function(event) {
+        const files = event.target.files;
+        upload_button.classList.add('hidden');
+        loading_button.classList.remove('hidden');
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Image = e.target.result;
+                const imageName = file.name;
+
+                const imageObject = {
+                    name: imageName,
+                    base64: base64Image
                 };
 
-                upload_button.classList.remove('hidden');
-                loading_button.classList.add('hidden');
-                reader.readAsDataURL(file);
+                image_size = getBase64FileSize(imageObject.base64);
+                upload_items.classList.remove('hidden');
+                images.push(imageObject);
+                upload_items.innerHTML += `<div id="${imageObject.base64}">
+                                                <div class="flex justify-between items-center">
+                                                <div class="flex items-center gap-x-3">
+                                                    <span class="size-8 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg">
+                                                    <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                                        <line x1="12" x2="12" y1="3" y2="15"></line>
+                                                    </svg>
+                                                    </span>
+                                                    <div>
+                                                    <p class="text-sm font-medium text-gray-800">${imageObject.name}</p>
+                                                    <p class="text-xs text-gray-500">${image_size}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="inline-flex items-center gap-x-2">
+                                                    <div onclick="delete_image('${imageObject.base64}')" class="cursor-pointer text-gray-500 hover:text-gray-800">
+                                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6h18"></path>
+                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                                        <line x1="10" x2="10" y1="11" y2="17"></line>
+                                                        <line x1="14" x2="14" y1="11" y2="17"></line>
+                                                    </svg>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>`;
+                console.log('Image Object:', imageObject);
                 scrollToBottom(conversationDiv);
-            });
-            scrollToBottom(conversationDiv);
-        });
+            };
 
-        function delete_image(base64){
-            const imageElement = document.getElementById(base64);
-            
-            if (imageElement) {
-                imageElement.remove();
-                images = images.filter(image => image.base64 !== base64);
-                console.log('Image List:', images);
-                console.log('Image JSON:', JSON.stringify(images, null, 2));
-            } else {
-                console.log('Image element not found');
-            }
-
-            if (images.length === 0) {
-                upload_items.classList.add('hidden');
-                upload_button.classList.remove('hidden');
-            }
-            scrollToBottom(conversationDiv);
-        }
-
-        function upload(){
-
-            scrollToBottom(conversationDiv);
-            upload_button.classList.add('hidden');
-            loading_button.classList.remove('hidden');
-            upload_items.classList.add('hidden');
-            conversation_status = 'text_input';
-            normal_button.classList.remove('hidden');
+            upload_button.classList.remove('hidden');
             loading_button.classList.add('hidden');
-            image_input.classList.add('hidden');
-            text_input.classList.remove('hidden');
+            reader.readAsDataURL(file);
+            scrollToBottom(conversationDiv);
+        });
+        scrollToBottom(conversationDiv);
+    });
 
+    function delete_image(base64){
+        const imageElement = document.getElementById(base64);
+        
+        if (imageElement) {
+            imageElement.remove();
+            images = images.filter(image => image.base64 !== base64);
+            console.log('Image List:', images);
+            console.log('Image JSON:', JSON.stringify(images, null, 2));
+        } else {
+            console.log('Image element not found');
         }
 
-        text_input.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); 
-                send(); 
-            }
-        });
+        if (images.length === 0) {
+            upload_items.classList.add('hidden');
+            upload_button.classList.remove('hidden');
+        }
+        scrollToBottom(conversationDiv);
+    }
 
-    </script>
+    function upload(){
+
+        scrollToBottom(conversationDiv);
+        upload_button.classList.add('hidden');
+        loading_button.classList.remove('hidden');
+        upload_items.classList.add('hidden');
+        conversation_status = 'text_input';
+        normal_button.classList.remove('hidden');
+        loading_button.classList.add('hidden');
+        image_input.classList.add('hidden');
+        text_input.classList.remove('hidden');
+
+    }
+
+    text_input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
+            send(); 
+        }
+    });
+
+</script>
