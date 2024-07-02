@@ -125,5 +125,26 @@ def api_form():
         print(f"Error handling form API request: {e}")
         return jsonify({'response': "An error occurred while processing your request."}), 500
 
+def check_allergens(input_text, allergens):
+    """Function to query the Gemini API to check if the food is safe based on allergens."""
+    try:
+        # Example payload for Gemini API
+        payload = {
+            'food_item': input_text,
+            'allergens': allergens
+        }
+        
+        # Replace 'your_gemini_api_endpoint' with the actual Gemini API endpoint
+        response = requests.post('your_gemini_api_endpoint', json=payload)
+        
+        # Ensure the request was successful
+        if response.status_code == 200:
+            return response.json()['safe_to_consume']
+        else:
+            return "Error querying Gemini API."
+    except Exception as e:
+        print(f"Error querying Gemini API: {e}")
+        return "An error occurred while querying the Gemini API."
+    
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
