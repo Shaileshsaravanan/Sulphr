@@ -3,6 +3,7 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import os
+import requests
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -145,6 +146,19 @@ def check_allergens(input_text, allergens):
     except Exception as e:
         print(f"Error querying Gemini API: {e}")
         return "An error occurred while querying the Gemini API."
+    
+@app.route('/api/check_allergens', methods=['POST'])
+def api_check_allergens():
+    """API route to check if a food item is safe to consume based on allergens."""
+    try:
+        data = request.get_json()
+        input_text = data['input']
+        allergens = data['allergens']
+        response_text = check_allergens(input_text, allergens)
+        return jsonify({'response': response_text})
+    except Exception as e:
+        print(f"Error handling check allergens API request: {e}")
+        return jsonify({'response': "An error occurred while processing your request."}), 500
     
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
