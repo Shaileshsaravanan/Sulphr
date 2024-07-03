@@ -1,120 +1,150 @@
 <!DOCTYPE html>
 <html>
     {% include 'header.html' %}
-    <body class="relative bg-gray-100 min-h-screen p-5">
-        <!-- User Profile Section -->
-        <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-md">
-            <img id="user_profile_element" class="w-12 h-12 rounded-full" src="" alt="">
-            <div class="font-medium text-lg">
-                <div>Hello, {{ user_name }}! 👋</div>
-            </div>
+    <body class="relative bg-gray-100 min-h-screen p-5 flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white p-6 rounded-lg shadow-md">
+            <div class="text-lg font-bold mb-6">Navigation</div>
+            <ul class="space-y-4">
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Profile</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Ask Sulphr</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Recommendations</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Recent Activity</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Notifications</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Health Tips</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Settings</li>
+                <li class="hover:bg-gray-50 p-2 rounded-lg cursor-pointer">Logout</li>
+            </ul>
         </div>
     
-        <!-- Search Bar -->
-        <div class="mt-6 flex justify-center">
-            <input type="text" class="w-full max-w-lg p-3 rounded-lg shadow-md" placeholder="Search for medical advice, symptoms, etc...">
-        </div>
-    
-        <!-- Main Content Section -->
-        <div class="mt-10 space-y-8">
-            <!-- Ask Sulphr Section -->
-            <div>
-                <div class="ml-2 font-bold text-xl text-gray-800">Ask Sulphr</div>
-                <div class="mt-5 grid grid-cols-2 gap-6">
-                    <!-- Upload an Image Card -->
-                    <div class="bg-white p-6 h-28 rounded-3xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19a3 3 0 1 1-6 0M15.865 16A7.54 7.54 0 0 0 19.5 9.538C19.5 5.375 16.142 2 12 2S4.5 5.375 4.5 9.538A7.54 7.54 0 0 0 8.135 16m7.73 0h-7.73m7.73 0v3h-7.73v-3"></path>
-                        </svg>
-                        <div class="ml-4 text-gray-600 text-sm">Upload an Image</div>
-                    </div>
-                    <!-- Use Text Prompts with Sulphr Card -->
-                    <div class="bg-white p-6 h-28 rounded-3xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-width="2" d="M3 6h7M3 10h4"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.428 17.572 20.5 10.5a2.828 2.828 0 1 0-4-4l-7.072 7.072a2 2 0 0 0-.547 1.022L8 19l4.406-.881a2 2 0 0 0 1.022-.547"></path>
-                        </svg>
-                        <div class="ml-4 text-gray-600 text-sm">Use Text Prompts with Sulphr</div>
-                    </div>
+        <!-- Main Content -->
+        <div class="flex-1 ml-6">
+            <!-- User Profile Section -->
+            <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow-md">
+                <img id="user_profile_element" class="w-12 h-12 rounded-full" src="" alt="">
+                <div class="font-medium text-lg">
+                    <div>Hello, {{ user_name }}! 👋</div>
                 </div>
             </div>
-    
-            <!-- Recommendations Section -->
-            <div>
-                <div class="ml-2 font-bold text-xl text-gray-800">Recommendations</div>
-                <div class="mt-5 space-y-4">
-                    <!-- Recommendation Card -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md cursor-pointer hover:bg-gray-50">
-                        <div class="grid grid-cols-4 gap-4">
-                            <div class="col-span-3 flex items-center">
-                                <div class="text-gray-800 font-semibold text-md">Is it okay for me to consume this drink and provide some information about any potential health concerns?</div>
-                            </div>
-                            <img class="h-32 w-full object-cover rounded-lg" src="" alt="">
+        
+            <!-- Search Bar -->
+            <div class="mt-6 flex justify-center">
+                <input type="text" class="w-full max-w-lg p-3 rounded-lg shadow-md" placeholder="Search for medical advice, symptoms, etc...">
+            </div>
+        
+            <!-- Main Content Section -->
+            <div class="mt-10 space-y-8">
+                <!-- Ask Sulphr Section -->
+                <div>
+                    <div class="ml-2 font-bold text-xl text-gray-800">Ask Sulphr</div>
+                    <div class="mt-5 grid grid-cols-2 gap-6">
+                        <!-- Upload an Image Card -->
+                        <div class="bg-white p-6 h-28 rounded-3xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19a3 3 0 1 1-6 0M15.865 16A7.54 7.54 0 0 0 19.5 9.538C19.5 5.375 16.142 2 12 2S4.5 5.375 4.5 9.538A7.54 7.54 0 0 0 8.135 16m7.73 0h-7.73m7.73 0v3h-7.73v-3"></path>
+                            </svg>
+                            <div class="ml-4 text-gray-600 text-sm">Upload an Image</div>
                         </div>
-                    </div>
-                    <!-- Add more recommendation cards as needed -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md cursor-pointer hover:bg-gray-50">
-                        <div class="grid grid-cols-4 gap-4">
-                            <div class="col-span-3 flex items-center">
-                                <div class="text-gray-800 font-semibold text-md">Here's another recommendation for you based on your preferences.</div>
-                            </div>
-                            <img class="h-32 w-full object-cover rounded-lg" src="" alt="">
+                        <!-- Use Text Prompts with Sulphr Card -->
+                        <div class="bg-white p-6 h-28 rounded-3xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-width="2" d="M3 6h7M3 10h4"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.428 17.572 20.5 10.5a2.828 2.828 0 1 0-4-4l-7.072 7.072a2 2 0 0 0-.547 1.022L8 19l4.406-.881a2 2 0 0 0 1.022-.547"></path>
+                            </svg>
+                            <div class="ml-4 text-gray-600 text-sm">Use Text Prompts with Sulphr</div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-            <!-- Recent Activity Section -->
-            <div>
-                <div class="ml-2 font-bold text-xl text-gray-800">Recent Activity</div>
-                <div class="mt-5 space-y-4">
-                    <!-- Recent Activity Card -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">You asked about symptoms of a common cold on July 1, 2024.</div>
-                        <div class="text-gray-500 text-sm mt-1">Our advice: Rest, stay hydrated, and consult a doctor if symptoms persist.</div>
-                    </div>
-                    <!-- Add more recent activity cards as needed -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">You uploaded an image for analysis on June 30, 2024.</div>
-                        <div class="text-gray-500 text-sm mt-1">Our analysis: The image shows no immediate health concerns, but further testing is recommended.</div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Notifications Section -->
-            <div>
-                <div class="ml-2 font-bold text-xl text-gray-800">Notifications</div>
-                <div class="mt-5 space-y-4">
-                    <!-- Notification Card -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">New update available: Symptom checker now includes more conditions!</div>
-                        <div class="text-gray-500 text-sm mt-1">Update your app to get the latest features.</div>
-                    </div>
-                    <!-- Add more notification cards as needed -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">Reminder: Schedule your annual check-up.</div>
-                        <div class="text-gray-500 text-sm mt-1">Stay on top of your health with regular check-ups.</div>
+        
+                <!-- Recommendations Section -->
+                <div>
+                    <div class="ml-2 font-bold text-xl text-gray-800">Recommendations</div>
+                    <div class="mt-5 space-y-4">
+                        <!-- Recommendation Card -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md cursor-pointer hover:bg-gray-50">
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="col-span-3 flex items-center">
+                                    <div class="text-gray-800 font-semibold text-md">Is it okay for me to consume this drink and provide some information about any potential health concerns?</div>
+                                </div>
+                                <img class="h-32 w-full object-cover rounded-lg" src="" alt="">
+                            </div>
+                        </div>
+                        <!-- Add more recommendation cards as needed -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md cursor-pointer hover:bg-gray-50">
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="col-span-3 flex items-center">
+                                    <div class="text-gray-800 font-semibold text-md">Here's another recommendation for you based on your preferences.</div>
+                                </div>
+                                <img class="h-32 w-full object-cover rounded-lg" src="" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <!-- Tips Section -->
-            <div>
-                <div class="ml-2 font-bold text-xl text-gray-800">Health Tips</div>
-                <div class="mt-5 space-y-4">
-                    <!-- Tip Card -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">Stay Hydrated</div>
-                        <div class="text-gray-500 text-sm mt-1">Drinking enough water is crucial for maintaining your health and well-being.</div>
+        
+                <!-- Recent Activity Section -->
+                <div>
+                    <div class="ml-2 font-bold text-xl text-gray-800">Recent Activity</div>
+                    <div class="mt-5 space-y-4">
+                        <!-- Recent Activity Card -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">You asked about symptoms of a common cold on July 1, 2024.</div>
+                            <div class="text-gray-500 text-sm mt-1">Our advice: Rest, stay hydrated, and consult a doctor if symptoms persist.</div>
+                        </div>
+                        <!-- Add more recent activity cards as needed -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">You uploaded an image for analysis on June 30, 2024.</div>
+                            <div class="text-gray-500 text-sm mt-1">Our analysis: The image shows no immediate health concerns, but further testing is recommended.</div>
+                        </div>
                     </div>
-                    <!-- Add more tip cards as needed -->
-                    <div class="bg-white p-6 rounded-3xl shadow-md">
-                        <div class="text-gray-800 font-semibold">Eat Balanced Meals</div>
-                        <div class="text-gray-500 text-sm mt-1">A balanced diet is essential for proper body function and overall health.</div>
+                </div>
+        
+                <!-- Notifications Section -->
+                <div>
+                    <div class="ml-2 font-bold text-xl text-gray-800">Notifications</div>
+                    <div class="mt-5 space-y-4">
+                        <!-- Notification Card -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">New update available: Symptom checker now includes more conditions!</div>
+                            <div class="text-gray-500 text-sm mt-1">Update your app to get the latest features.</div>
+                        </div>
+                        <!-- Add more notification cards as needed -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">Reminder: Schedule your annual check-up.</div>
+                            <div class="text-gray-500 text-sm mt-1">Stay on top of your health with regular check-ups.</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Tips Section -->
+                <div>
+                    <div class="ml-2 font-bold text-xl text-gray-800">Health Tips</div>
+                    <div class="mt-5 space-y-4">
+                        <!-- Tip Card -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">Stay Hydrated</div>
+                            <div class="text-gray-500 text-sm mt-1">Drinking enough water is crucial for maintaining your health and well-being.</div>
+                        </div>
+                        <!-- Add more tip cards as needed -->
+                        <div class="bg-white p-6 rounded-3xl shadow-md">
+                            <div class="text-gray-800 font-semibold">Eat Balanced Meals</div>
+                            <div class="text-gray-500 text-sm mt-1">A balanced diet is essential for proper body function and overall health.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Footer -->
+        <footer class="bg-white p-4 rounded-lg shadow-md mt-10">
+            <div class="flex justify-between items-center">
+                <div class="text-gray-600">&copy; 2024 Medical Assistant App. All rights reserved.</div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-gray-800">Privacy Policy</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">Terms of Service</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-800">Contact Us</a>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
 <script>
