@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="relative bg-gray-100 min-h-screen p-5">
+    <!-- Settings Page Container -->
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <div class="text-3xl font-bold mb-8">Settings</div>
+        
+        <!-- Account Settings Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Account Settings</div>
+            <div class="space-y-6">
+                <!-- Profile Picture -->
+                <div class="flex items-center space-x-6">
+                    <img id="user_profile_element" class="w-20 h-20 rounded-full border" src="{{ user_profile }}" alt="">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Profile Picture</label>
+                        <input type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                </div>
+                <!-- Username -->
+                <div class="flex justify-between items-center">
+                    <div>Username</div>
+                    <div class="flex items-center">
+                        <input type="text" class="border p-2 rounded-lg w-64" value="{{ user_name }}">
+                        <button class="ml-2 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Save</button>
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="flex justify-between items-center">
+                    <div>Email</div>
+                    <div class="flex items-center">
+                        <input type="email" class="border p-2 rounded-lg w-64" value="{{ user_email }}">
+                        <button class="ml-2 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Save</button>
+                    </div>
+                </div>
+                <!-- Password -->
+                <div class="flex justify-between items-center">
+                    <div>Password</div>
+                    <div class="flex items-center">
+                        <input type="password" class="border p-2 rounded-lg w-64" value="••••••••">
+                        <button class="ml-2 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Preferences Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Notification Preferences</div>
+            <div class="space-y-6">
+                <!-- Email Notifications -->
+                <div class="flex justify-between items-center">
+                    <div>Email Notifications</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="email_notifications" checked>
+                        <label for="email_notifications" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+                <!-- SMS Notifications -->
+                <div class="flex justify-between items-center">
+                    <div>SMS Notifications</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="sms_notifications">
+                        <label for="sms_notifications" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+                <!-- Push Notifications -->
+                <div class="flex justify-between items-center">
+                    <div>Push Notifications</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="push_notifications" checked>
+                        <label for="push_notifications" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Settings Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Privacy Settings</div>
+            <div class="space-y-6">
+                <!-- Profile Visibility -->
+                <div class="flex justify-between items-center">
+                    <div>Profile Visibility</div>
+                    <div class="flex items-center">
+                        <select class="border p-2 rounded-lg w-64">
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                            <option value="friends_only">Friends Only</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Data Sharing -->
+                <div class="flex justify-between items-center">
+                    <div>Data Sharing</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="data_sharing" checked>
+                        <label for="data_sharing" class="ml-2 text-gray-700">Allow</label>
+                    </div>
+                </div>
+                <!-- Two-Factor Authentication -->
+                <div class="flex justify-between items-center">
+                    <div>Two-Factor Authentication</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="two_factor_auth" checked>
+                        <label for="two_factor_auth" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connected Apps Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Connected Apps</div>
+            <div class="space-y-6">
+                <!-- Google Fit -->
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Google_Fit_Logo.png" alt="Google Fit" class="h-8 w-8">
+                        <div>Google Fit</div>
+                    </div>
+                    <button class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">Disconnect</button>
+                </div>
+                <!-- Apple Health -->
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Apple_Health_App_Icon.png/1024px-Apple_Health_App_Icon.png" alt="Apple Health" class="h-8 w-8">
+                        <div>Apple Health</div>
+                    </div>
+                    <button class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">Disconnect</button>
+                </div>
+                <!-- Fitbit -->
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Fitbit_logo_2021.svg/1200px-Fitbit_logo_2021.svg.png" alt="Fitbit" class="h-8 w-8">
+                        <div>Fitbit</div>
+                    </div>
+                    <button class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme Settings Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Theme Settings</div>
+            <div class="space-y-6">
+                <!-- Theme -->
+                <div class="flex justify-between items-center">
+                    <div>Theme</div>
+                    <div class="flex items-center">
+                        <select class="border p-2 rounded-lg w-64">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="system">System Default</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Settings Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Language Settings</div>
+            <div class="space-y-6">
+                <!-- Language -->
+                <div class="flex justify-between items-center">
+                    <div>Language</div>
+                    <div class="flex items-center">
+                        <select class="border p-2 rounded-lg w-64">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <!-- Add more languages as needed -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accessibility Settings Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Accessibility Settings</div>
+            <div class="space-y-6">
+                <!-- Text Size -->
+                <div class="flex justify-between items-center">
+                    <div>Text Size</div>
+                    <div class="flex items-center">
+                        <select class="border p-2 rounded-lg w-64">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- High Contrast Mode -->
+                <div class="flex justify-between items-center">
+                    <div>High Contrast Mode</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="high_contrast_mode">
+                        <label for="high_contrast_mode" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+                <!-- Text-to-Speech -->
+                <div class="flex justify-between items-center">
+                    <div>Text-to-Speech</div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="text_to_speech">
+                        <label for="text_to_speech" class="ml-2 text-gray-700">Enabled</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Export Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Data Export</div>
+            <div class="space-y-6">
+                <!-- Export Data -->
+                <div class="flex justify-between items-center">
+                    <div>Export Your Data</div>
+                    <div class="flex items-center">
+                        <button class="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Export</button>
+                    </div>
+                </div>
+                <!-- Delete Account -->
+                <div class="flex justify-between items-center">
+                    <div>Delete Your Account</div>
+                    <div class="flex items-center">
+                        <button class="bg-red-600 text-white p-2 rounded-lg hover:bg-red-700">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="mb-12">
+            <div class="text-xl font-semibold mb-4 border-b pb-2">Feedback</div>
+            <div class="space-y-6">
+                <!-- Feedback Form -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Your Feedback</label>
+                    <textarea class="border p-2 rounded-lg w-full h-32" placeholder="Let us know your thoughts..."></textarea>
+                    <button class="mt-2 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Submit Feedback</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Changes Button -->
+        <div class="text-right">
+            <button class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">Save Changes</button>
+        </div>
+    </div>
+</body>
+</html>
